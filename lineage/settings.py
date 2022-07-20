@@ -83,10 +83,6 @@ WSGI_APPLICATION = 'lineage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd8pcjlp2iue9kt',
-        'USER': 'rqhspfiurbyoor',
-        'PASSWORD': '3e7037f8ddbbd526797ccdfd67696d25eb368043c8642b61d222d0c96ef6f3b6',
-        'HOST': 'ec2-52-48-159-67.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }
