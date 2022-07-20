@@ -6,42 +6,38 @@
             <div class="nk-gap-4 mb-14"></div>
             <h1 class="nk-portfolio-title">{{ user.first_name }} {{ user.last_name }}</h1>
             <div class="row vertical-gap">
-                <div class="col-lg-8">
+                <div class="col-lg-7">
                     <div class="nk-portfolio-info">
                         <div class="nk-portfolio-text">
                             {{ user.about }}
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-5">
                     <table class="nk-portfolio-details">
                         <tr>
-                            <td colspan="2"><strong>Aile Üyeleri</strong></td>
+                            <td colspan="2"><strong>Hakkımda ;</strong></td>
                         </tr>
-                        <tr>
-                            <td><strong>Anne:</strong></td>
-                            <td>
-                                {% if user.mother is not None %}
+                        {% if user.mother is not None %}
+                            <tr>
+                                <td><strong>Anne:</strong></td>
+                                <td>
                                     <a href="{% url 'user' pk=user.mother.pk %}">{{ user.mother.first_name }} {{ user.mother.last_name }}</a>
-                                {% else %}
-                                    Bilgi bulunmamaktadır.
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Baba:</strong></td>
-                            <td>
-                                {% if user.father is not None %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.father is not None %}
+                            <tr>
+                                <td><strong>Baba:</strong></td>
+                                <td>
                                     <a href="{% url 'user' pk=user.father.pk %}">{{ user.father.first_name }} {{ user.father.last_name }}</a>
-                                {% else %}
-                                    Bilgi bulunmamaktadır.
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><strong>Kardeşler ;</strong></td>
-                        </tr>
+                                </td>
+                            </tr>
+                        {% endif %}
                         {% if siblings is not None %}
+                            <tr>
+                                <td colspan="2"><strong>Kardeşler ;</strong></td>
+                            </tr>
                             {% for sibling in siblings %}
                                 {% if sibling != user %}
                                     <tr>
@@ -51,17 +47,11 @@
                                     </tr>
                                 {% endif %}
                             {% endfor %}
-                        {% else %}
-                            <tr>
-                                <td colspan="2">
-                                    Bilgi bulunmamaktadır.
-                                </td>
-                            </tr>
                         {% endif %}
-                        <tr>
-                            <td colspan="2"><strong>Eş ;</strong></td>
-                        </tr>
                         {% if spouse is not None %}
+                            <tr>
+                                <td colspan="2"><strong>Eş ;</strong></td>
+                            </tr>
                             {% if spouse != user %}
                                 <tr>
                                     <td colspan="2">
@@ -69,17 +59,11 @@
                                     </td>
                                 </tr>
                             {% endif %}
-                        {% else %}
-                            <tr>
-                                <td colspan="2">
-                                    Bilgi bulunmamaktadır.
-                                </td>
-                            </tr>
                         {% endif %}
-                        <tr>
-                            <td colspan="2"><strong>Çocuklar ;</strong></td>
-                        </tr>
                         {% if children is not None %}
+                            <tr>
+                                <td colspan="2"><strong>Çocuklar ;</strong></td>
+                            </tr>
                             {% for child in children %}
                                 <tr>
                                     <td colspan="2">
@@ -87,19 +71,16 @@
                                     </td>
                                 </tr>
                             {% endfor %}
-                        {% else %}
+                        {% endif %}
+                        {% if user.birth_date is not None %}
                             <tr>
-                                <td colspan="2">
-                                    Bilgi bulunmamaktadır.
-                                </td>
+                                <td colspan="2"><strong>Doğum Tarihi:</strong></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">{{ user.birth_date }}</td>
                             </tr>
                         {% endif %}
-                        <tr>
-                            <td colspan="2"><strong>Doğum Tarihi:</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">{{ user.birth_date }}</td>
-                        </tr>
+
                     </table>
                 </div>
             </div>
@@ -117,7 +98,7 @@
                            data-author='Kişiler : {% include 'widgets/link.html' with users=image.user_tag.all %}'
                            style="background-image: url('{{ image.thumbnail_sm.url }}');">
                             <img
-                                    src="{{ image.thumbnail_sm.url }}" alt="{{ image.alt_text }}"></a>
+                                    src="{{ image.img_url.url }}" alt="{{ image.alt_text }}"></a>
                         <div class="nk-gallery-item-description d-none">Etiketler
                             : {% include 'widgets/tag_link.html' with tags=image.user_tag.all %}</div>
                     </div>
