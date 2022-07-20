@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="nk-portfolio-single">
+            <div class="nk-gap-4 mb-14"></div>
+            <h1 class="nk-portfolio-title">{{ user.first_name }} {{ user.last_name }}</h1>
+            <div class="row vertical-gap">
+                <div class="col-lg-8">
+                    <div class="nk-portfolio-info">
+                        <div class="nk-portfolio-text">
+                            {{ user.about }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <table class="nk-portfolio-details">
+                        <tr>
+                            <td colspan="2"><strong>Aile Üyelerim ;</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annem:</strong></td>
+                            <td>
+                                {% if user.mother is not None %}
+                                    <a href="{% url 'user' pk=user.mother.pk %}">{{ user.mother.first_name }} {{ user.mother.last_name }}</a>
+                                {% else %}
+                                    Bilgi bulunmamaktadır.
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Babam:</strong></td>
+                            <td>
+                                {% if user.father is not None %}
+                                    <a href="{% url 'user' pk=user.father.pk %}">{{ user.father.first_name }} {{ user.father.last_name }}</a>
+                                {% else %}
+                                    Bilgi bulunmamaktadır.
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Doğum Tarihim ;</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{ user.birth_date }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="nk-gap-4 mt-14"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="nk-isotope nk-isotope-3-cols nk-isotope-gap nk-popup-gallery nk-portfolio-list">
+            {% for image in images %}
+                <div class="nk-isotope-item">
+                    <div class="nk-portfolio-item">
+                        <a href="{{ image.img_url.url }}"
+                           class="nk-gallery-item nk-portfolio-item-image"
+                           data-size="{{ image.img_url.width }}x{{ image.img_url.height }}"
+                           style="background-image: url('{{ image.thumbnail_sm.url }}');"><img
+                                src="{{ image.thumbnail_sm.url }}" alt="{{ image.alt_text }}"></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="nk-gap-5"></div>
+    <!-- START: Pagination -->
+    <div class="nk-pagination nk-pagination-center">
+        <div class="container">
+            <a class="nk-pagination-prev" href="#"><span class="bi bi-arrow-left"></span></a>
+            <a class="nk-pagination-center" href="{% url 'users' %}"><span class="nk-icon-squares"></span></a>
+            <a class="nk-pagination-next" href="#"><span class="bi bi-arrow-right"></span>
+            </a>
+        </div>
+    </div>
+    <!-- END: Pagination -->
+{% endblock content %}

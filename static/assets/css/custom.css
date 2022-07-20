@@ -1,0 +1,19 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hiddenscroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hiddenscroll {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.pswp__caption__center {
+    font-size: 21px !important;
+    line-height: 33px !important;
+}
+
+.pswp__caption small {
+    font-size: 16px !important;
+}

@@ -1,0 +1,7 @@
+{% for user in users %}
+    {% if forloop.counter > 1 %}
+        |
+    {% endif %}
+    <a href="{% url 'user' pk=user.pk %}">{{ user.full_name }}</a>
+{% endfor %}
+

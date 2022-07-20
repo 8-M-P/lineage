@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid">
+        {% if current_tag is not None %}
+            <div class="h2 align-center pt-25 mt-30">"{{ current_tag }}" etiketi ile ilgili arama sonuçları.</div>
+        {% endif %}
+        <!-- START: Filter -->
+        <ul class="nk-isotope-filter">
+            <li class="{% if current_tag is None %}active{% endif %}" data-filter="*">HEPSİ</li>
+            {% for tag in tags %}
+                {% if tag != "" %}
+                    <li class="{% if current_tag == tag %}active{% endif %}"
+                        data-filter="{{ tag|lower }}">{{ tag|upper }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <!-- END: Filter -->
+        <div class="nk-portfolio-list nk-isotope nk-isotope-4-cols nk-popup-gallery">
+            {% for row in table %}
+                <div class="nk-isotope-item"
+                     data-filter="{% for data in row.user_tag.all %}{{ data.last_name|lower }}{% endfor %}">
+                    <div class="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
+                        <a href="{{ row.img_url.url }}"
+                           class="nk-portfolio-item-link nk-gallery-item" data-size="1500x1500"
+                           data-author='Kişiler : {% include 'widgets/link.html' with users=row.user_tag.all %}'></a>
+                        <div class="nk-gallery-item-description d-none">Etiketler
+                            : {% include 'widgets/tag_link.html' with tags=row.user_tag.all %}</div>
+                        <div class="nk-portfolio-item-image">
+                            <div style="background-image: url('{{ row.thumbnail.url }}');"></div>
+                        </div>
+                        <div class="nk-portfolio-item-info nk-portfolio-item-info-center text-center bg-main-9">
+                            <div>
+                                <div class="portfolio-item-icon"><span class="bi bi-eye"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,7 @@
+{% for tag in tags %}
+    {% if forloop.counter > 1 %}
+        |
+    {% endif %}
+    <a href="{% url 'family' tag=tag.last_name %}">{{ tag.last_name }}</a>
+{% endfor %}
+

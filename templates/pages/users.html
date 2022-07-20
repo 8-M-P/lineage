@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        {% if current_tag is not None %}
+            <div class="h2 align-center pt-25 mt-30">"{{ current_tag }}" etiketi ile ilgili arama sonuçları.</div>
+        {% endif %}
+        <!-- START: Filter -->
+        <ul class="nk-isotope-filter">
+            <li class="{% if current_tag is None %}active{% endif %}" data-filter="*">HEPSİ</li>
+            {% for tag in tags %}
+                {% if tag != "" %}
+                    <li class="{% if current_tag == tag %}active{% endif %}"
+                        data-filter="{{ tag|lower }}">{{ tag|upper }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <!-- END: Filter -->
+        <div class="nk-portfolio-list nk-isotope nk-isotope-gap nk-isotope-4-cols">
+            {% for row in table %}
+                <div class="nk-isotope-item" data-filter="{{ row.last_name|lower }}">
+                    <div class="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
+                        <a href="{% url 'user' pk=row.pk %}" class="nk-portfolio-item-link"></a>
+                        <div class="nk-portfolio-item-image">
+                            <div style="background-image: url('{{ row.avatar.url }}');"></div>
+                        </div>
+                        <div class="nk-portfolio-item-info nk-portfolio-item-info-center text-center bg-main-9">
+                            <div>
+                                <h2 class="portfolio-item-title h3">{{ row.first_name }} {{ row.last_name }}</h2>
+                                <div class="portfolio-item-icon"><span class="bi bi-link-45deg"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
