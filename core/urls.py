@@ -1,3 +1,4 @@
+from django.conf.urls.static import static
 from django.contrib.auth.decorators import login_required
 from django.urls import path, re_path
 from django.conf import settings
@@ -16,11 +17,5 @@ urlpatterns = [
     path('cikis/', logout_page, name='logout'),
 ]
 
-
-@login_required
-def protected_serve(request, path, document_root=None, show_indexes=False):
-    return serve(request, path, document_root, show_indexes)
-
-
-urlpatterns += [re_path(r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], protected_serve,
-                        {'document_root': settings.MEDIA_ROOT})]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
