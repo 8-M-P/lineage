@@ -2,6 +2,8 @@
     {% if forloop.counter > 1 %}
         |
     {% endif %}
-    <a href="{% url 'family' tag=tag.last_name %}">{{ tag.last_name }}</a>
+    {% if tag.last_name != "" %}
+        <a href="{% url 'family' tag=tag.last_name %}">{{ tag.last_name }}</a>
+    {% endif %}
 {% endfor %}
 
