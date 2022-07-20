@@ -57,7 +57,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                                     help_text="Hesap kullanılabilirlik durumu.")
     # Custom Fields
     full_name = models.CharField(max_length=40, unique=True, verbose_name="İsim Soyisim")
-    avatar = ProcessedImageField(default="avatar.jpeg", upload_to='avatars',
+    avatar = ProcessedImageField(default="avatar.jpg", upload_to='avatars',
                                  processors=[ResizeToFill(250, 250)], format='JPEG', options={'quality': 60})
     father = models.ForeignKey("self", on_delete=models.SET_NULL, related_name="user_father", verbose_name="Baba",
                                null=True, blank=True)
