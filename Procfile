@@ -1,2 +1,2 @@
-release: python manage.py migrations -g
+release: python manage.py makemigrations core && migrate -g
 web: gunicorn lineage.wsgi
